@@ -13,7 +13,7 @@ block body
   div.container-fluid
     header.row-fluid
       div.navbar
-        div.navbar-inner
+        nav.navbar-inner
           a.brand(href='#') FRISB
           ul.nav
             li.active
@@ -24,9 +24,26 @@ block body
               a(href='/users') Users
             li
               a(href='/teams') Teams
-    div.row-fluid
-      div.span2
-      div.span10
+    main.row-fluid
+      aside.span4#notes-menu
+        div#todo-list
+          h3 ToDo List
+          ol
+            input(type="checkbox") todo item
+            input(type="checkbox") todo item
+        div#markup-menu
+          h3 Mark Up Tools
+          ul
+            li 
+              input(type="checkbox", id="show", value="Show Mark Up") 
+              label(for="show") Show Mark Up
+            li
+              a.todo-list Add a ToDo
+            li
+              a.red-pen Mark up with red pen
+            li
+              a.replace-text Replace Text
+      div.span8
         h1 FRISB
         p Welcom to FRISB
 
