@@ -2,15 +2,37 @@
 <html lang="en" ng-app="frisb">
 <head>
   <meta charset="utf-8">
-  <title>My AngularJS App</title>
+  <title>FRISB</title>
   <link rel="stylesheet" href="css/frisb.less"/>
   <link rel="stylesheet" href="css/bootstrap-responsive.css"/>
   <link rel="stylesheet" href="css/bootstrap.css"/>
   <script src="js/less-1.3.3.min.js"></script>
 </head>
 <body>
-  <h1>FRISB</h1>
-  <p>Welcome to FRISB</p>
+  <div class="container-fluid">
+  <div class="row-fluid">
+    <header>
+      <div class="navbar">
+        <div class="navbar-inner">
+          <a class="brand" href="#">Title</a>
+          <ul class="nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="/skills">Skills</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/team">Team</a></li>     
+          </ul>
+        </div>
+      </div>
+    </header>
+    <div class="span2">
+      <!--Sidebar content-->
+    </div>
+    <div class="span10">
+      <h1>FRISB</h1>
+      <p>Welcome to FRISB</p>
+    </div>
+  </div>
+</div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
