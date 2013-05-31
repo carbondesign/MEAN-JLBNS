@@ -1,24 +1,48 @@
 var express = require('express'),
-	url = require("url"),
-    frisb = require('./routes/frisbs'),
-    swagger = require("swagger-node-express");
+	routes = require('./routes'),
+  api = require('./routes/api'),
+  swagger = require("swagger-node-express"),
+  lessMiddleware = require('less-middleware');
  
-var app = express();
+var app = module.exports = express.createServer();
+
+app.configure(function () {
+    app.set('port', process.env.PORT || 3000);
+    app.use(express.logger('dev'));  /* 'default', 'short', 'tiny', 'dev' */
+    app.use(express.methodOverride());
+    app.use(lessMiddleware({src : __dirname + "/public", compress : true }));
+    app.use(express.static(__dirname + '/public'));
+    app.use(app.router);
+    app.set('views', __dirname + '/views');
+    app.set('view engine', 'jade');
+    app.set('view options', {
+      layout: false
+    });
+   
+});
+
+// Routes
+
+app.get('/', routes.index);
+app.get('/partials/:name', routes.partials);
+
+// JSON API
+app.get('/frisb', api.findAll);
+app.get('/frisb/:id', api.findById);
+app.post('/frisb', api.addFrisb);
+app.put('/frisb/:id', api.updateFrisb);
+app.delete('/frisb/:id', api.deleteFrisb);
  
-app.get('/frisb', frisb.findAll);
-app.get('/frisb/:id', frisb.findById);
-app.post('/frisb', frisb.addFrisb);
-app.put('/frisb/:id', frisb.updateFrisb);
-app.delete('/frisb/:id', frisb.deleteFrisb);
- 
+// redirect all others to the index (HTML5 history)
+app.get('*', routes.index);
 
 console.log('Listening on port 3000...');
 
-app.configure(function () {
-    app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
-    app.use(express.bodyParser());
-});
 
+
+
+
+///////////////////////SWAGGER/////////////////////////////////////////
 swagger.setAppHandler(app);
 
 var findById = {
